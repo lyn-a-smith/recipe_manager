@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Ingredient Detail
+{% endblock %}
+
+{% block content %}
+    <h1>{{ingredient.name}}</h1>
+    <p>Description:{{ingredient.description}}
+    
+    <hr>
+    <a href="{% url 'ingredients_edit' ingredient.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'ingredients_delete' ingredient.id %}" class="btn btn-danger">Delete</a>   
+{% endblock content %}

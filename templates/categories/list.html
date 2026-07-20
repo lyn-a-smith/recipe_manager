@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block content %}
+    <h1>All Categories</h1>
+    <a href="{% url 'categories_new' %}" class="btn btn-success">Add New Ingredient</a>
+    <hr>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href= "{% url 'categories_detail' category.id %}">{{ category.name }}</a>
+                <p><strong>Description:</strong> {{ category.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

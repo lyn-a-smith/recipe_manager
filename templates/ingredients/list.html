@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Ingredients
+{% endblock %}
+
+{% block content %}
+    <h1>All Ingredients</h1>
+    <a href="{% url 'ingredients_new' %}" class="btn btn-success">Add New Ingredient</a>
+    <hr>
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>
+                <a href= "{% url 'ingredients_detail' ingredient.id %}">{{ ingredient.name }}</a>
+                <p><strong>Description:</strong> {{ ingredient.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+
+        

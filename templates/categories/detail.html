@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Category Detail
+{% endblock %}
+
+{% block content %}
+    <h1>{{category.name}}</h1>
+    <p>Description:{{category.description}}
+    
+    <hr>
+    <a href="{% url 'categories_edit' category.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'categories_delete' category.id %}" class="btn btn-danger">Delete</a>   
+{% endblock content %}
