@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class Category(models.Model):
@@ -18,6 +19,9 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('categories_detail', args=[self.id])
+
     def __str__(self):
         return self.name
 
@@ -29,6 +33,10 @@ class Ingredient(models.Model):
         verbose_name = 'Ingredient'
         verbose_name_plural = 'Ingredients'
         ordering = ['name']
+    
+    def get_absolute_url(self):
+        return reverse('ingredients_detail', args=[self.id])
+
 
     def __str__(self):
         return self.name

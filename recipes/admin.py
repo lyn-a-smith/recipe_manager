@@ -3,4 +3,56 @@ from .models import Category, Ingredient, Recipe, RecipeIngredient
 
 
 # Register your models here.
-admin.site.register([Category, Ingredient, Recipe, RecipeIngredient])
+# admin.site.register([Category, Ingredient, Recipe, RecipeIngredient])
+
+#________________ Category __________________
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    # list_display attribute is a tuple that allows us to define the columns to display in the admin site
+    list_display = ('name', 'slug', 'recipe_count')
+    # search_fields allow us to enable the search bar and search through the desired attribute
+    search_fields = ('name',)
+    # prepopulated_fields allow us to add values without actually typing a value on it
+    prepopulated_fields = {'slug': ('name',)}
+
+    @admin.display(description='# of Recipes')
+    def recipe_count(self, obj):
+        return obj.recipes.count()
+    
+#________________ Ingredient __________________
+@admin.register(Ingredient)
+class IngredientAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
+#________________ RecipeIngredientInline __________________
+class RecipeIngredientInline(admin.TabularInline):
+    model = RecipeIngredient
+    extra = 3 # how many empty rows show by default
+    fields = ('ingredient', 'quantity', 'unit', 'notes')
+
+#________________ Recipe __________________
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'category', 'status', 'prep_time', 'cook_time', 'created_at')
+    list_filter = ('status', 'category', 'created_at')
+    readonly_fields = ('created_at', 'updated_at')
+    search_fields = ('title', 'description', 'author__username')
+    prepopulated_fields = {'slug': ('title',)}
+    inlines = [RecipeIngredientInline]
+
+    fieldsets = (
+        ('Main Information', {
+            'fields': ('title', 'slug', 'author', 'category', 'status')
+        }),
+        ('Content', {
+            'fields': ('description', 'instructions', 'image')
+        }),
+        ('Times & Servings', {
+            'fields': ('prep_time', 'cook_time', 'servings')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ingredient.name}}</h1>
-    <p>Description:{{ingredient.description}}
+    <h2>{{ingredient.name}}</h2>
+    <p>Description: {{ingredient.description}}
     
     <hr>
     <a href="{% url 'ingredients_edit' ingredient.id %}" class="btn btn-primary">Edit</a>

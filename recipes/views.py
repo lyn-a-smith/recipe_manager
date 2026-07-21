@@ -32,7 +32,7 @@ class IngredientUpdateView(UpdateView):
     template_name = 'ingredients/edit.html'
     model = Ingredient
     fields = ['name', 'description']
-    success_url = reverse_lazy('ingredients_list')
+    
 
 class IngredientDeleteView(DeleteView):
     template_name = 'ingredients/delete.html'
@@ -60,7 +60,6 @@ class CategoryUpdateView(UpdateView):
     template_name = 'categories/edit.html'
     model = Category
     fields = ['name', 'description']
-    success_url = reverse_lazy('categories_list')
 
 class CategoryDeleteView(DeleteView):
     template_name = 'categories/delete.html'
