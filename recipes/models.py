@@ -157,6 +157,9 @@ class Recipe(models.Model):
         verbose_name_plural = 'Recipes'
         ordering = ['-created_at']  
 
+    def get_absolute_url(self):
+        return reverse("recipe_detail", kwargs={'slug': self.slug})
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)

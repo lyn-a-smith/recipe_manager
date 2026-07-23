@@ -9,7 +9,10 @@ from .views import (
     CategoryListView,
     CategoryDetailView,
     CategoryUpdateView,
-    CategoryDeleteView
+    CategoryDeleteView,
+    RecipeListView,
+    RecipeCreateView,
+    RecipeDetailView,
 )
 
 urlpatterns = [
@@ -23,5 +26,10 @@ urlpatterns = [
     path('categories/detail/<int:pk>/', CategoryDetailView.as_view(), name='categories_detail'),
     path('categories/edit/<int:pk>/', CategoryUpdateView.as_view(), name='categories_edit'),
     path('categories/delete/<int:pk>/', CategoryDeleteView.as_view(), name='categories_delete'),
+    #________________ URLs for Recipe _____________________
+    path('', RecipeListView.as_view(), name='recipes_list'),
+    path('new/', RecipeCreateView.as_view(), name='recipes_create'),
+    path('<slug:slug>/', RecipeDetailView.as_view(), name='recipes_detail'),
+    
     
 ]

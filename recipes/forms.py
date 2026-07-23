@@ -4,6 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Field
 from .models import Recipe, RecipeIngredient
 
+
 class RecipeIngredientForm(forms.ModelForm):
     class Meta:
         model = RecipeIngredient
@@ -40,7 +41,6 @@ RecipeIngredientFormSet = inlineformset_factory(
 class RecipeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False # we control the <form> tag in the template
@@ -80,7 +80,7 @@ class RecipeForm(forms.ModelForm):
     # We start from specifics clean_fieldname
     def clean_title(self):
         title = self.cleaned_data.get('title')
-        qs = Recipe.objects.filter(author=self.user, title__iexact=title)
+        qs = Recipe.objects.filter(title__iexact=title)
         # On update, exclude the current instance from the check
         if self.instance.pk:
             qs = qs.exclude(pk=self.instance.pk)
